@@ -14,7 +14,7 @@ export default function OwnerDashboard() {
   const user = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('user'));
 
   const fetchListings = async () => {
-    const res = await fetch('http://localhost:5000/books');
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/books`);
     const data = await res.json();
     setBooks(data);
   };
@@ -26,7 +26,7 @@ export default function OwnerDashboard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newBook = { ...form, owner: user.name };
-    const res = await fetch('http://localhost:5000/books', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/books`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newBook)
